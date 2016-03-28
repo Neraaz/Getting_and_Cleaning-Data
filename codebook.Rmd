@@ -91,5 +91,7 @@ frequencyBodyGyroscopeMagnitude-mean()
 frequencyBodyGyroscopeMagnitude-std()
 frequencyBodyGyroscopeJerkMagnitude-mean()
 frequencyBodyGyroscopeJerkMagnitude-std()
-subject                 # subject is subject id
-activity               # activity is activity id from labels files.
+subject   
+# subject is subject id
+activity              
+# activity is activity id from labels files.
