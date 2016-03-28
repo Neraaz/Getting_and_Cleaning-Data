@@ -1,49 +1,44 @@
-        
-              Activity
-      ................................        
-        
-        V1                 V2
-        1             WALKING
-        2      WALKING_UPSTAIRS
-        3      WALKING_DOWNSTAIRS
-        4              SITTING
-        5             STANDING
-        6               LAYING
-
-      *****See codebook for more information about different measurement.************                                         
-       
-       
-                                           Instructions:
-
-
 ## At first, we check that the folder data already exists or not. If not then we download the file and put it on
-## folder named data. Dataset.zip is our zipped folder. We use following command for this.
-file.exists() to check whether the file exists or not?
-dir.create() to create directory
-download.file() to download the file.
+## folder named data. Dataset.zip is our zipped folder.
+if(!file.exists("./data")){dir.create("./data")}
+fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+download.file(fileUrl,destfile="./data/Dataset.zip")
 
 ## Now we unzip the file by using command "unzip". Again, we named unzip folder as data.
-unzip()
+unzip(zipfile = "./data/Dataset.zip", exdir = "./data")
 ## Inside data, there is another folder named "UCI HAR Dataset", Now we will proceed to get 
 ## data inside this folder.
 
-path <- file.path() 
-
+path <- file.path("./data", "UCI HAR Dataset")
+files <- list.files(path, recursive = TRUE)
 
 ## Now we read different files containing Activity, Subject, Features of two different data
-## sets "test" and "train" using read.table() function.
+## sets "test" and "train".
 
-read.table()
-## Now we merge the data tables by rows.
-rbind()
+dataActivityTest  <- read.table(file.path(path, "test" , "Y_test.txt" ),header = FALSE)
+dataActivityTrain <- read.table(file.path(path, "train", "Y_train.txt"),header = FALSE)
+dataSubjectTrain <- read.table(file.path(path, "train", "subject_train.txt"),header = FALSE)
+dataSubjectTest  <- read.table(file.path(path, "test" , "subject_test.txt"),header = FALSE)
+dataFeaturesTest  <- read.table(file.path(path, "test" , "X_test.txt" ),header = FALSE)
+dataFeaturesTrain <- read.table(file.path(path, "train", "X_train.txt"),header = FALSE)
+
+## Now we merge this data tables by rows.
+dataSubject <- rbind(dataSubjectTrain, dataSubjectTest)
+dataActivity<- rbind(dataActivityTrain, dataActivityTest)
+dataFeatures<- rbind(dataFeaturesTrain, dataFeaturesTest)
+
 ## Now we set the data names into variables 
-names()
+names(dataSubject)<-c("subject")
+names(dataActivity)<- c("activity")
+dataFeaturesNames <- read.table(file.path(path, "features.txt"),head=FALSE)
+names(dataFeatures)<- dataFeaturesNames$V2
 
 ## Now we merge Columns of the data tables which is formed by merging data tables by row earlier.
-cbind()
+datacomb <- cbind(dataSubject, dataActivity)
+Data <- cbind(dataFeatures, datacomb)
 
 ## Now we extract only the measurement on the mean and standard deviation for each measurement.
-grep()
+subdataFeaturesNames<-dataFeaturesNames$V2[grep("mean\\(\\)|std\\(\\)", dataFeaturesNames$V2)]
 selectedNames<-c(as.character(subdataFeaturesNames), "subject", "activity" )
 Data<-subset(Data,select=selectedNames)
 
