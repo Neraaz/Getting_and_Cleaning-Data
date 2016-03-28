@@ -1,4 +1,31 @@
-timeBodyAccelerometer-mean()-X
+##Input:
+tBodyAcc-XYZ
+tGravityAcc-XYZ
+tBodyAccJerk-XYZ
+tBodyGyro-XYZ
+tBodyGyroJerk-XYZ
+tBodyAccMag
+tGravityAccMag
+tBodyAccJerkMag
+tBodyGyroMag
+tBodyGyroJerkMag
+fBodyAcc-XYZ
+fBodyAccJerk-XYZ
+fBodyGyro-XYZ
+fBodyAccMag
+fBodyAccJerkMag
+fBodyGyroMag
+fBodyGyroJerkMag
+
+
+##The first letter defines the domain: t for time or f for frequency
+##The next part defines the source variable: BodyAcc (BodyAcceleration), GravityAcc (GravityAcceleration) or BodyGyro (BodyGyroscope)
+##The next (optional) part describes the method that was used to derive the variable: Mag (Magnitued), Jerk or JerkMag (JerkMagnitude)
+##The part after the dash describes the function that was used to compute the feature mean (Mean) or std (Standarddeviation)
+##In case of three axial measurements, the last part of the variable defines the axis (X, Y or Z)
+
+## Output:
+timeBodyAccelerometer-mean()-X is variable and tBodyAcc-mean()-X is source variable.
 timeBodyAccelerometer-mean()-Y
 timeBodyAccelerometer-mean()-Z
 timeBodyAccelerometer-std()-X
@@ -64,5 +91,5 @@ frequencyBodyGyroscopeMagnitude-mean()
 frequencyBodyGyroscopeMagnitude-std()
 frequencyBodyGyroscopeJerkMagnitude-mean()
 frequencyBodyGyroscopeJerkMagnitude-std()
-subject
-activity
+subject                 # subject is subject id
+activity               # activity is activity id from labels files.
